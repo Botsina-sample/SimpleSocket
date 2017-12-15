@@ -48,7 +48,6 @@ namespace SocketServer
         public Form1()
         {
             InitializeComponent();
-            
 
             new Thread(() =>
             {
@@ -63,6 +62,7 @@ namespace SocketServer
                 listBox1.Items.Add(clientep.Address);
 
             }).Start();
+
         }
 
         
@@ -91,39 +91,27 @@ namespace SocketServer
             {
                 
                 mess.name = textBox1.Text; //This is the data we will respond with
-                byte[] data = new byte[1024];
+                byte[] data = new byte[8000];
                 data = Encoding.ASCII.GetBytes(mess.name); //Encode the data
                 client.Send(data, data.Length, SocketFlags.None); //Send the data to the client
                 int dataReceived = client.Receive(data);
                 string stringData = Encoding.ASCII.GetString(data, 0, dataReceived); //Decode the data received
                 listBox1.Items.Add(stringData); //Write the data on the screen
+        
 
             }).Start();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            try
-            {
-                
-                if(client != null || socket != null)
-                {
-                    MessageBox.Show("Server not start");
-                } else
-                {
-                    client.Close(); //Close Client
-                    socket.Close(); //Close socket
-                    listBox1.Items.Add("Server STOP");
-                }
-            } catch(Exception ex)
-            {
-                listBox1.Items.Add(ex.Message);
-            }
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            client.Close(); //Close Client
+            socket.Close(); //Close socket
+            listBox1.Items.Add("Server STOP");
         }
     }
 }

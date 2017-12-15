@@ -39,7 +39,7 @@ namespace Client
 
                 try
                 {
-                    byte[] data = new byte[1024];
+                    byte[] data = new byte[8000];
                     string input;
                     int receivedDataLength = server.Receive(data); //Wait for the data
                     string stringData = Encoding.ASCII.GetString(data, 0, receivedDataLength); //Decode the data received
@@ -48,10 +48,10 @@ namespace Client
                     if (stringData == "REQ_STOP")
                     {
                         input = "ALL STOP";
-                        Thread.Sleep(1000);
+        
                         server.Send(Encoding.ASCII.GetBytes(input));
 
-                        Thread.Sleep(1000);
+                  
                         break;
                     }
 
