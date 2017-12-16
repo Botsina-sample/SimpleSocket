@@ -6,6 +6,8 @@ using System.Threading;
 
 namespace Client
 {
+
+
     internal class Program
     {
         private static void Main(string[] args)
@@ -47,7 +49,8 @@ namespace Client
 
                     if (stringData == "REQ_STOP")
                     {
-                        input = "ALL STOP";
+     
+                        input = "CLIENT STOP";
         
                         server.Send(Encoding.ASCII.GetBytes(input));
 
@@ -57,8 +60,14 @@ namespace Client
 
                     if (stringData == "REQ_SPY")
                     {
-                        input = "SPY";
+                        
+                        input = "SPYING";
+                        //Thread.Sleep(2000);
+                        server.Send(Encoding.ASCII.GetBytes(input));
                         Thread.Sleep(5000);
+
+                        input = "SPY COMPLETED";
+                        //Thread.Sleep(2000);
                         server.Send(Encoding.ASCII.GetBytes(input));
                     }
 
@@ -71,7 +80,7 @@ namespace Client
 
                 }
 
-                catch (Exception ex)
+                catch (SocketException ex)
                 {
                     Console.WriteLine(ex.Message);
                     break;

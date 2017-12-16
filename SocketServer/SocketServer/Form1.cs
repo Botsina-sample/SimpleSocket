@@ -109,7 +109,7 @@ namespace SocketServer
 
         private void button3_Click(object sender, EventArgs e)
         {
-            client.Close(); //Close Client
+            //client.Close(); //Close Client
             socket.Close(); //Close socket
             listBox1.Items.Add("Server STOP");
         }
