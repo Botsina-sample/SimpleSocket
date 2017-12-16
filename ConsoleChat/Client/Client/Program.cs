@@ -41,7 +41,7 @@ namespace Client
 
                 try
                 {
-                    byte[] data = new byte[8000];
+                    byte[] data = new byte[1024];
                     string input;
                     int receivedDataLength = server.Receive(data); //Wait for the data
                     string stringData = Encoding.ASCII.GetString(data, 0, receivedDataLength); //Decode the data received
@@ -64,11 +64,9 @@ namespace Client
                         input = "SPYING";
                         //Thread.Sleep(2000);
                         server.Send(Encoding.ASCII.GetBytes(input));
-                        Thread.Sleep(5000);
+          
 
-                        input = "SPY COMPLETED";
-                        //Thread.Sleep(2000);
-                        server.Send(Encoding.ASCII.GetBytes(input));
+        
                     }
 
                     if (stringData == "REQ_PB")
