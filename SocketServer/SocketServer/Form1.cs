@@ -18,6 +18,8 @@ namespace SocketServer
     {
         protected string _name = "REQ_PB";
         protected bool _clicked = false;
+        protected string _messRec = "";
+
 
         public string name
         {
@@ -31,6 +33,11 @@ namespace SocketServer
             set { _clicked = value; }
         }
         
+        public string messRec
+        {
+            get { return _messRec; }
+            set { _messRec = value; }
+        }
 
     }
 
@@ -89,14 +96,14 @@ namespace SocketServer
 
             new Thread(() =>
             {
-                
+            
                 mess.name = textBox1.Text; //This is the data we will respond with
-                byte[] data = new byte[8000];
+                byte[] data = new byte[1024];
                 data = Encoding.ASCII.GetBytes(mess.name); //Encode the data
                 client.Send(data, data.Length, SocketFlags.None); //Send the data to the client
                 int dataReceived = client.Receive(data);
-                string stringData = Encoding.ASCII.GetString(data, 0, dataReceived); //Decode the data received
-                listBox1.Items.Add(stringData); //Write the data on the screen
+                mess.messRec = Encoding.ASCII.GetString(data, 0, dataReceived); //Decode the data received
+                listBox1.Items.Add(mess.messRec); //Write the data on the screen
         
 
             }).Start();
